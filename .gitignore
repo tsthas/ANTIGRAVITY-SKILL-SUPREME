@@ -1,0 +1,60 @@
+# Variáveis de ambiente e segredos
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.cert
+*.token
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Antigravity e Sessões Temporárias
+.antigravity/
+brain/
+scratch/
+transcript*.jsonl
+
+# Logs e Dados Operacionais
+*.log
+logs/
+
+# Worktrees
+.worktrees/
+worktrees/
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini

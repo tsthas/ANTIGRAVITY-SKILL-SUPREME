@@ -1,0 +1,43 @@
+{
+  "mcpServers": {
+    "StitchMCP": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://stitch.googleapis.com/mcp",
+        "--header",
+        "X-Goog-Api-Key: ${STITCH_GOOGLE_API_KEY}"
+      ],
+      "description": "Google Stitch MCP Server para criação de protótipos de tela, design systems e geração visual a partir de linguagem natural."
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      },
+      "description": "GitHub MCP Server para automação de repositórios, criação de pull requests, issues, commits e code reviews via agente."
+    },
+    "notebooklm": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "notebooklm-mcp",
+        "run"
+      ],
+      "description": "NotebookLM MCP Server para conexão com o Google NotebookLM, permitindo ingestão de fontes, consultas e síntese de áudio/podcasts."
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp"
+      ],
+      "description": "Chrome DevTools MCP Server para controle de navegador real, inspeção de DOM, monitoramento de console e profiling de performance."
+    }
+  }
+}
