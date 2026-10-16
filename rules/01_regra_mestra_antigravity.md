@@ -21,25 +21,30 @@
 
 ---
 
-## 🧠 2. Gestão de Memória e Documentação
-* **Boot:** Inspecione `DOCUMENTACOES/` no início de conversas para resgatar o histórico do projeto e contexto pregresso.
-* **Padrão de Nomenclatura:** `DOCUMENTACOES/YYYYMMDD_HHMM_[PROJETO]_[TIPO].md` (Planos em `DOCUMENTACOES/planos_de_implementacao/` com status explícito `[STATUS: SUCESSO/FALHA]`).
-* **Rastreabilidade (Genesis Prompt & Intent Log):** Todo documento de decisão (`_DECISOES.md`) deve conter no topo:
-  ```markdown
-  ## 🎯 Prompt Fundacional / Demanda Original
-  [Prompt exato do usuário sanitizado de segredos e senhas]
-  ```
-  Em refatorações subsequentes, registre data/hora e o novo prompt motivador. Ao retomar projetos, leia sempre o Genesis Prompt para entender a motivação de negócio antes de alterar qualquer lógica.
+## 🧠 2. Gestão de Memória Integrada (`ai-memory`) e Documentação (`DOCUMENTACOES/`)
+* **Boot da Sessão:**
+  1. Acione no servidor MCP **`ai-memory`** (`127.0.0.1:49374`) as tools `memory_handoff_accept` e `memory_briefing` com `workspace = "antigravity"` e `project = "<NOME_DO_PROJETO>"`.
+  2. Inspecione a pasta **`DOCUMENTACOES/`** do projeto no início da conversa para resgatar o histórico documental completo e contexto de negócio.
+* **Manutenção Integral de `DOCUMENTACOES/` por Projeto (Inegociável):** O uso do `ai-memory` substitui apenas os handoffs voláteis (`SESSION_HANDOFF.md` / `TRAPS.md` manuais), mas **NÃO substitui** a documentação rica de cada projeto. Mantenha integralmente:
+  * **Padrão de Nomenclatura:** `DOCUMENTACOES/YYYYMMDD_HHMM_[PROJETO]_[TIPO].md` (`_DECISOES.md`, `_ESPECIFICACAO.md`, `_WALKTHROUGH.md`) e planos em `DOCUMENTACOES/planos_de_implementacao/` com status explícito `[STATUS: SUCESSO/FALHA]`.
+  * **Rastreabilidade (Genesis Prompt & Intent Log):** Todo documento de decisão (`_DECISOES.md`) deve conter no topo:
+    ```markdown
+    ## 🎯 Prompt Fundacional / Demanda Original
+    [Prompt exato do usuário sanitizado de segredos e senhas]
+    ```
+    Em refatorações subsequentes, registre data/hora e o novo prompt motivador. Ao retomar projetos, leia sempre o Genesis Prompt para entender a motivação de negócio antes de alterar qualquer lógica.
+* **Sincronização e Fechamento:** Ao descobrir uma nova decisão ou armadilha operacional, grave imediatamente via `memory_write_page` (`decisions/`, `concepts/`, `gotchas/`). Ao encerrar a sessão no Antigravity, chame obrigatoriamente `memory_handoff_begin` (resumo com hash do commit + próximos passos).
 
 ---
 
-## 🔄 3. Fluxo de Desenvolvimento (SDD + TDD)
-1. **Contexto & Setup:** Analisar repositório e docs em `DOCUMENTACOES/`.
-2. **Sabatina (Grill-Me):** Rodada de 3 a 4 perguntas para sanar dúvidas de UX, dados, segurança e stack técnica. Gerar `_DECISOES.md` com o Genesis Prompt.
-3. **Especificação (To-Spec):** Arquitetura, schemas, contratos de interface e critérios no formato *Given/When/Then*. Aguardar aprovação do usuário antes de codar.
-4. **Decomposição (To-Tickets):** Quebrar em tarefas atômicas com arquivos e testes definidos em ondas paralelas.
-5. **Implementação (TDD):** Um ticket por vez no ciclo contínuo:
-   $$\text{Red (Falha)} \longrightarrow \text{Green (Passa)} \longrightarrow \text{Refactor (Limpa)} \longrightarrow \text{Self-Review}$$
+## 🔄 3. Fluxo de Desenvolvimento (SDD + TDD + Ambiente Fechado)
+1. **Contexto & Setup:** Executar `memory_handoff_accept` + `memory_briefing` no `ai-memory` e analisar repositório e docs em `DOCUMENTACOES/`.
+2. **Sabatina (Grill-Me):** Rodada de 3 a 4 perguntas para sanar dúvidas de UX, dados, segurança e stack técnica. Gerar `_DECISOES.md` com o Genesis Prompt em `DOCUMENTACOES/` e registrar decisões no `ai-memory`.
+3. **Especificação (To-Spec):** Arquitetura, schemas, contratos de interface e critérios no formato *Given/When/Then* em `DOCUMENTACOES/`. Aguardar aprovação do usuário antes de codar.
+4. **Decomposição (To-Tickets):** Quebrar em tarefas atômicas com arquivos e testes definidos em ondas paralelas (respeitando *1 escritor por vez por arquivo* entre Claude Code e Antigravity).
+5. **Implementação (TDD) & Verificação (`verificar.py`):** Um ticket por vez no ciclo contínuo:
+   $$\text{Red (Falha)} \longrightarrow \text{Green (Passa)} \longrightarrow \text{Refactor (Limpa)} \longrightarrow \text{python verificar.py (Código 0)}$$
+   "Pronto" só vale com `python verificar.py` (testes automatizados + varredura `gitleaks`) saindo com código `0`.
 
 ---
 

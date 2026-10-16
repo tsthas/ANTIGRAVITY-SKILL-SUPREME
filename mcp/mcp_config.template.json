@@ -38,6 +38,14 @@
         "chrome-devtools-mcp"
       ],
       "description": "Chrome DevTools MCP Server para controle de navegador real, inspeção de DOM, monitoramento de console e profiling de performance."
+    },
+    "ai-memory": {
+      "command": "python",
+      "args": [
+        "${ANTIGRAVITY_SUPREME_DIR}/mcp/ai_memory_antigravity.py"
+      ],
+      "timeout": 15000,
+      "description": "ai-memory MCP Server (127.0.0.1:49374) para memória operacional integrada e handoffs entre Claude Code e Google Antigravity."
     }
   }
 }

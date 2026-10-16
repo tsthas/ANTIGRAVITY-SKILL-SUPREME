@@ -17,6 +17,7 @@ Para garantir determinismo em ambientes com múltiplos projetos simultâneos, ad
 | **`6379 - 6380`** | Bancos em Memória e Mensageria | Redis, BullMQ Cache |
 | **`11434`** | Motor de Inferência LLM Local | Ollama (Llama, Mistral, Qwen, DeepSeek) |
 | **`20128`** | Gateways de Inteligência Artificial | OmniRoute, Roteadores LLM Multi-Provider |
+| **`49374`** | Memória Operacional Unificada (MCP) | `ai-memory` (Servidor Local Claude Code + Antigravity) |
 
 ---
 

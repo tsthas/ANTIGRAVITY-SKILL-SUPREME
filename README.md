@@ -28,9 +28,9 @@ O **ANTIGRAVITY-SKILL-SUPREME** é o primeiro pacote definitivo *open-source* qu
 Chega de *vibe coding* frágil, alucinações de código sem testes, loops infinitos de agentes e quebras em produção. Este repositório consolida:
 
 1. **40+ Skills Especializadas:** Cobrindo todo o ciclo de vida do software (*Spec -> Plan -> Build -> Test -> Review -> Ship*), design de interface moderna, diagnóstico de sessões e governança de Segundo Cérebro (Wiki Karpathy).
-2. **6 Regras Mestras de Sistema:** Instruções inegociáveis de postura crítica (*Anti-Yes-Man*), limites de correção (*Pare no 3º Patch*), Quality Gates de 4 eixos e os 7 Pilares Defensivos de DevSecOps.
+2. **7 Regras Mestras de Sistema:** Instruções inegociáveis de postura crítica (*Anti-Yes-Man*), limites de correção (*Pare no 3º Patch*), Quality Gates de 4 eixos, os 7 Pilares Defensivos de DevSecOps e o **Ambiente Fechado (Claude Code + Antigravity com `ai-memory` + `DOCUMENTACOES/` por projeto)**.
 3. **Esquadrão de Subagentes:** Perfis otimizados de agentes de pesquisa, revisão sênior, auditoria de segurança e performance web.
-4. **Servidores MCP Pré-Configurados:** Integrações com Google Stitch, GitHub, NotebookLM e Chrome DevTools.
+4. **Servidores MCP Pré-Configurados:** Integrações com **`ai-memory`** (memória operacional unificada Claude Code $\longleftrightarrow$ Antigravity), Google Stitch, GitHub, NotebookLM e Chrome DevTools.
 5. **Toolchain Automatizada:** Script PowerShell de 1 clique para instalar runtimes (Node, Bun, Python uv), Docker, Ollama, Obsidian, FFmpeg e ferramentas CLI.
 
 ---
@@ -39,12 +39,12 @@ Chega de *vibe coding* frágil, alucinações de código sem testes, loops infin
 
 ```mermaid
 graph TD
-    Dev(["👤 Desenvolvedor"]) <--> Core["🚀 Google Antigravity Core"]
+    Dev(["👤 Desenvolvedor"]) <--> Core["🚀 Google Antigravity + Claude Code"]
     
     subgraph Governance ["1. Governança & Inteligência"]
-        Core --> Rules["📜 6 Regras Mestras (Quality Gate / Anti-Yes-Man / DevSecOps)"]
+        Core --> Rules["📜 7 Regras Mestras (Quality Gate / Anti-Yes-Man / DevSecOps / Ambiente Fechado)"]
         Core --> Skills["⚡ 40+ Skills de Engenharia & Customizadas"]
-        Core --> Router["🔀 Orquestrador de Subagentes & Ledger Persistente"]
+        Core --> Router["🔀 Orquestrador de Subagentes, DOCUMENTACOES/ & Ledger"]
     end
     
     subgraph Squad ["2. Esquadrão Especializado (Subagentes)"]
@@ -57,6 +57,7 @@ graph TD
     end
     
     subgraph MCP_Integrations ["3. Camada MCP (Model Context Protocol)"]
+        Router --> MCP_AIM["🧠 ai-memory MCP (Memória Unificada :49374)"]
         Router --> MCP_Stitch["🎨 StitchMCP (UI Design System)"]
         Router --> MCP_GH["🐙 GitHub MCP (PRs / Issues / Commits)"]
         Router --> MCP_NLM["🎙️ NotebookLM MCP (Base de Conhecimento)"]
@@ -110,10 +111,10 @@ Copy-Item -Path ".\mcp\mcp_config.template.json" -Destination "$env:USERPROFILE\
 | Dimensão | Vibe Coding Comum | Com Antigravity Supreme |
 | :--- | :--- | :--- |
 | **Postura do Agente** | *Yes-Man* (aceita tudo e gera código às cegas) | **Anti-Yes-Man Socrático** (questiona premissas e propõe trade-offs) |
-| **Ciclo de Desenvolvimento** | Gera arquivos gigantes de uma só vez sem testes | **SDD + TDD** em fatias atômicas por ondas paralelas |
+| **Ciclo de Desenvolvimento** | Gera arquivos gigantes de uma só vez sem testes | **SDD + TDD** em fatias atômicas + `python verificar.py` (código 0) |
 | **Erros e Bugs** | Tenta dezenas de correções aleatórias em loop | **Heurística do 3º Patch** (para e diagnostica arquitetura) |
-| **Segurança** | Expõe senhas no código, ignora RLS e autorização | **7 Pilares DevSecOps** obrigatórios (OWASP, RLS, DTOs Zod) |
-| **Memória Longa** | Perde o contexto ao longo de conversas extensas | **Ledger em Disco** imutável que resiste a compactações |
+| **Segurança** | Expõe senhas no código, ignora RLS e autorização | **7 Pilares DevSecOps** obrigatórios (OWASP, RLS, DTOs Zod, `gitleaks`) |
+| **Memória & Documentação** | Perde o contexto ao longo de conversas extensas | **Dupla Camada:** **`ai-memory`** (handoff Claude $\leftrightarrow$ Antigravity) + **`DOCUMENTACOES/`** integral por projeto |
 | **Revisão de Código** | Nenhuma revisão pré-merge | **Quality Gate de 4 Eixos** executado por subagente revisor |
 
 ---
@@ -168,7 +169,7 @@ Desenvolvidas pela liderança técnica de engenharia (Addy Osmani):
 Localizadas em `rules/`, estas diretrizes operam como constituição para os agentes:
 
 1. [**`01_regra_mestra_antigravity.md`**](rules/01_regra_mestra_antigravity.md):
-   * Postura Anti-Yes-Man, economia de tokens, convenção de memória datada, SDD+TDD e os **7 Pilares DevSecOps**.
+   * Postura Anti-Yes-Man, economia de tokens, memória integrada (`ai-memory`) + manutenção integral de `DOCUMENTACOES/` por projeto, SDD+TDD e os **7 Pilares DevSecOps**.
 2. [**`02_protocolo_vibe_architect.md`**](rules/02_protocolo_vibe_architect.md):
    * Proibição de código prematuro, ondas paralelas, Ledger persistente e a **Heurística do 3º Patch**.
 3. [**`03_protocolo_verificacao_final.md`**](rules/03_protocolo_verificacao_final.md):
@@ -176,9 +177,11 @@ Localizadas em `rules/`, estas diretrizes operam como constituição para os age
 4. [**`04_governanca_wiki_karpathy.md`**](rules/04_governanca_wiki_karpathy.md):
    * Padrões da estrutura `RAW/` -> `WIKI/`, templates atômicos e interconexão de conceitos.
 5. [**`05_gestao_portas_e_infraestrutura.md`**](rules/05_gestao_portas_e_infraestrutura.md):
-   * Política padrão de faixas de portas de rede (APIs `8000s`, Web `3000s`, Dashboards `5173s`).
+   * Política padrão de faixas de portas de rede (APIs `8000s`, Web `3000s`, Dashboards `5173s`, `ai-memory` `49374`).
 6. [**`06_dicionario_de_termos_confluence.md`**](rules/06_dicionario_de_termos_confluence.md):
    * Padrão obrigatório de glossário para documentações corporativas e Atlassian Confluence.
+7. [**`07_ambiente_fechado_e_ai_memory.md`**](rules/07_ambiente_fechado_e_ai_memory.md):
+   * Protocolo do Ambiente Fechado (Claude Code Piloto + Antigravity Copiloto), handoffs via MCP `ai-memory`, preservação integral de `DOCUMENTACOES/` em cada projeto e verificação obrigatória com `python verificar.py`.
 
 ---
 
@@ -186,6 +189,7 @@ Localizadas em `rules/`, estas diretrizes operam como constituição para os age
 
 Prontos para conexão através do arquivo `mcp/mcp_config.template.json`:
 
+* **🧠 ai-memory MCP:** Memória operacional local unificada (`127.0.0.1:49374`) e adaptador de handoffs (`mcp/ai_memory_antigravity.py`) entre Claude Code e Google Antigravity.
 * **🎨 StitchMCP:** Geração visual de telas de interface e design systems via Google Stitch.
 * **🐙 GitHub MCP:** Criação de pull requests, revisão de código e gestão de issues no GitHub.
 * **🎙️ NotebookLM MCP:** Ingestão de fontes, consultas semânticas e síntese de áudio.
@@ -232,10 +236,11 @@ Agilize o seu trabalho diário com atalhos de alto nível:
 
 | Termo / Sigla | Definição Clara e Acessível |
 | :--- | :--- |
+| **ai-memory** | Servidor MCP local (`127.0.0.1:49374`) que unifica a memória operacional e os handoffs de sessão entre Claude Code e Google Antigravity. |
 | **Antigravity** | Plataforma de desenvolvimento de software agêntico da Google para engenharia assistida por IA. |
 | **Circuit Breaker** | Mecanismo de segurança que limita o bate-rebate entre subagentes a no máximo 5 rodadas. |
 | **DTO (Data Transfer Object)** | Objeto tipado utilizado para serializar e validar dados em trânsito, protegendo o banco de dados. |
-| **DoD (Definition of Done)** | Critério observável e mensurável que comprova que uma tarefa foi concluída com sucesso real. |
+| **DoD (Definition of Done)** | Critério observável e mensurável (`python verificar.py` com código 0) que comprova que uma tarefa foi concluída com sucesso real. |
 | **Ledger Persistente** | Registro imutável em disco que preserva o estado das tarefas mesmo após compactações de contexto. |
 | **MCP (Model Context Protocol)** | Protocolo aberto que padroniza o acesso de modelos de IA a ferramentas e dados externos. |
 | **Ondas Paralelas** | Estratégia de fatiamento onde tarefas simultâneas nunca editam os mesmos arquivos. |

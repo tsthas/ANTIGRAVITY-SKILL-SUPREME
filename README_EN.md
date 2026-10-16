@@ -28,9 +28,9 @@
 No more fragile "vibe coding", untested code hallucinations, runaway agent loops, or production breakages. This repository packages:
 
 1. **40+ Production Skills:** Spanning the entire software engineering lifecycle (*Spec -> Plan -> Build -> Test -> Review -> Ship*), high-end mobile/web UI design, session forensics, and Obsidian Second Brain governance (Karpathy Wiki).
-2. **6 Master System Rules:** Rigorous non-negotiable guidelines covering Anti-Yes-Man posture, "Stop on 3rd Patch" heuristic, 4-Axis Quality Gates, and the 7 Defensive DevSecOps Pillars.
+2. **7 Master System Rules:** Rigorous non-negotiable guidelines covering Anti-Yes-Man posture, "Stop on 3rd Patch" heuristic, 4-Axis Quality Gates, the 7 Defensive DevSecOps Pillars, and the **Closed Environment (Claude Code + Antigravity with `ai-memory` + per-project `DOCUMENTACOES/`)**.
 3. **Specialized Subagent Squad:** Pre-configured roles for deep research, senior code review, threat modeling, QA engineering, and web performance audits.
-4. **Pre-configured MCP Servers:** Native connectors for Google Stitch, GitHub, Google NotebookLM, and Chrome DevTools.
+4. **Pre-configured MCP Servers:** Native connectors for **`ai-memory`** (unified operational memory across Claude Code & Antigravity), Google Stitch, GitHub, Google NotebookLM, and Chrome DevTools.
 5. **Automated Toolchain Provisioning:** 1-click Windows PowerShell installer (`setup_windows.ps1`) for Node.js, Bun, Python uv, Docker, Ollama, Obsidian, FFmpeg, and CLI tools.
 
 ---
@@ -39,12 +39,12 @@ No more fragile "vibe coding", untested code hallucinations, runaway agent loops
 
 ```mermaid
 graph TD
-    Dev(["👤 Developer / Architect"]) <--> Core["🚀 Google Antigravity Core"]
+    Dev(["👤 Developer / Architect"]) <--> Core["🚀 Google Antigravity + Claude Code"]
     
     subgraph Governance ["1. Intelligence & Governance Layer"]
-        Core --> Rules["📜 6 Master Rules (Quality Gate / Anti-Yes-Man / DevSecOps)"]
+        Core --> Rules["📜 7 Master Rules (Quality Gate / Anti-Yes-Man / DevSecOps / Closed Env)"]
         Core --> Skills["⚡ 40+ Production & Custom Skills"]
-        Core --> Router["🔀 Subagent Router & Persistent Disk Ledger"]
+        Core --> Router["🔀 Subagent Router, DOCUMENTACOES/ & Persistent Ledger"]
     end
     
     subgraph Squad ["2. Specialized Multi-Agent Squad"]
@@ -57,6 +57,7 @@ graph TD
     end
     
     subgraph MCP_Integrations ["3. MCP Integration Layer"]
+        Router --> MCP_AIM["🧠 ai-memory MCP (Unified Memory :49374)"]
         Router --> MCP_Stitch["🎨 StitchMCP (UI / Design System)"]
         Router --> MCP_GH["🐙 GitHub MCP (PRs / Issues / Commits)"]
         Router --> MCP_NLM["🎙️ NotebookLM MCP (Knowledge Graph)"]
@@ -107,10 +108,10 @@ Copy-Item -Path ".\mcp\mcp_config.template.json" -Destination "$env:USERPROFILE\
 | Dimension | Regular "Vibe Coding" | With Antigravity Supreme |
 | :--- | :--- | :--- |
 | **Agent Posture** | *Yes-Man* (accepts flawed premises, codes blindly) | **Socratic Anti-Yes-Man** (challenges assumptions, offers trade-offs) |
-| **Development Lifecycle** | Giant unverified single-shot files | **SDD + TDD** with atomic tasks across parallel waves |
+| **Development Lifecycle** | Giant unverified single-shot files | **SDD + TDD** with atomic tasks + `python verificar.py` (exit code 0) |
 | **Bug Fixing** | Infinite randomized retry loops | **Stop on 3rd Patch Heuristic** (halts to diagnose architecture) |
-| **Security** | Hardcoded secrets, missing RLS, open endpoints | **7 DevSecOps Pillars** (OWASP, RLS, Zod/Pydantic DTOs) |
-| **Long-Horizon Memory** | Loses thread after context compaction | **Persistent Disk Ledger** (`LEDGER_[PROJECT].md`) survives resets |
+| **Security** | Hardcoded secrets, missing RLS, open endpoints | **7 DevSecOps Pillars** (OWASP, RLS, Zod/Pydantic DTOs, `gitleaks`) |
+| **Memory & Documentation** | Loses thread after context compaction | **Dual Layer:** **`ai-memory`** (Claude $\leftrightarrow$ Antigravity handoffs) + full per-project **`DOCUMENTACOES/`** |
 | **Review Standard** | No review before merge | **4-Axis Quality Gate** evaluated by senior reviewer agent |
 
 ---
@@ -137,18 +138,20 @@ Crafted by engineering leadership (Addy Osmani):
 ## 📜 Master System Rules
 
 Located in `rules/`:
-1. **`01_regra_mestra_antigravity.md`**: Anti-Yes-Man posture, token economy, dated memory, SDD+TDD, and the 7 DevSecOps Pillars.
+1. **`01_regra_mestra_antigravity.md`**: Anti-Yes-Man posture, token economy, unified `ai-memory` + per-project `DOCUMENTACOES/`, SDD+TDD, and the 7 DevSecOps Pillars.
 2. **`02_protocolo_vibe_architect.md`**: Intent-first socratic opening, parallel waves, persistent ledger, and Stop on 3rd Patch.
 3. **`03_protocolo_verificacao_final.md`**: 4-Axis Quality Gate triggered by `/review` or `/verificar`.
 4. **`04_governanca_wiki_karpathy.md`**: Obsidian knowledge graph directory conventions, templates, and relations.
-5. **`05_gestao_portas_e_infraestrutura.md`**: Standard port allocation bands (APIs `8000s`, Web `3000s`, Vite Dashboards `5173s`).
+5. **`05_gestao_portas_e_infraestrutura.md`**: Standard port allocation bands (APIs `8000s`, Web `3000s`, Vite Dashboards `5173s`, `ai-memory` `49374`).
 6. **`06_dicionario_de_termos_confluence.md`**: Mandatory glossary formatting standard for enterprise documentation.
+7. **`07_ambiente_fechado_e_ai_memory.md`**: Closed Environment protocol (Claude Code Pilot + Antigravity Copilot), `ai-memory` MCP session handoffs, mandatory `DOCUMENTACOES/` per project, and `verificar.py` verification gate.
 
 ---
 
 ## 🔌 Model Context Protocol (MCP) Servers
 
 Configured via `mcp/mcp_config.template.json`:
+* **🧠 ai-memory MCP:** Unified local operational memory (`127.0.0.1:49374`) and session handoff bridge (`mcp/ai_memory_antigravity.py`) between Claude Code and Google Antigravity.
 * **🎨 StitchMCP:** Visual UI screen and design system generator via Google Stitch.
 * **🐙 GitHub MCP:** Pull requests, code review, commits, and issue automation.
 * **🎙️ NotebookLM MCP:** Knowledge ingestion, semantic query, and audio podcast generation.
