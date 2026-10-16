@@ -108,7 +108,7 @@ Copy-Item -Path ".\mcp\mcp_config.template.json" -Destination "$env:USERPROFILE\
 | Dimension | Regular "Vibe Coding" | With Antigravity Supreme |
 | :--- | :--- | :--- |
 | **Agent Posture** | *Yes-Man* (accepts flawed premises, codes blindly) | **Socratic Anti-Yes-Man** (challenges assumptions, offers trade-offs) |
-| **Development Lifecycle** | Giant unverified single-shot files | **SDD + TDD** with atomic tasks + `python verificar.py` (exit code 0) |
+| **Development Lifecycle** | Giant unverified single-shot files | **SDD + TDD** with atomic tasks + `npm/bun run verify` (`tsc --noEmit` + tests) or `verificar.py` |
 | **Bug Fixing** | Infinite randomized retry loops | **Stop on 3rd Patch Heuristic** (halts to diagnose architecture) |
 | **Security** | Hardcoded secrets, missing RLS, open endpoints | **7 DevSecOps Pillars** (OWASP, RLS, Zod/Pydantic DTOs, `gitleaks`) |
 | **Memory & Documentation** | Loses thread after context compaction | **Dual Layer:** **`ai-memory`** (Claude $\leftrightarrow$ Antigravity handoffs) + full per-project **`DOCUMENTACOES/`** |
@@ -144,7 +144,7 @@ Located in `rules/`:
 4. **`04_governanca_wiki_karpathy.md`**: Obsidian knowledge graph directory conventions, templates, and relations.
 5. **`05_gestao_portas_e_infraestrutura.md`**: Standard port allocation bands (APIs `8000s`, Web `3000s`, Vite Dashboards `5173s`, `ai-memory` `49374`).
 6. **`06_dicionario_de_termos_confluence.md`**: Mandatory glossary formatting standard for enterprise documentation.
-7. **`07_ambiente_fechado_e_ai_memory.md`**: Closed Environment protocol (Claude Code Pilot + Antigravity Copilot), `ai-memory` MCP session handoffs, mandatory `DOCUMENTACOES/` per project, and `verificar.py` verification gate.
+7. **`07_ambiente_fechado_e_ai_memory.md`**: Closed Environment protocol (Claude Code Pilot + Antigravity Copilot), `ai-memory` MCP session handoffs, mandatory `DOCUMENTACOES/` per project, and polyglot verification gate (`npm/bun run verify` with `tsc --noEmit` in TypeScript or `python verificar.py`).
 
 ---
 

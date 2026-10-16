@@ -6,7 +6,7 @@
 
 ## 🤝 1. Papéis e Escopo Operacional
 1. **Execução 100% Local:** Tudo roda na máquina local por padrão. Nenhuma alteração em servidores remotos sem solicitação explícita do desenvolvedor.
-2. **Claude Code = PILOTO:** Decide, integra, executa `git diff` e valida a esteira (`python verificar.py`).
+2. **Claude Code = PILOTO:** Decide, integra, executa `git diff` e valida a esteira (`npm run verify` / `bun run verify` ou `python verificar.py`).
 3. **Google Antigravity = COPILOTO:** Lê, pesquisa, projeta arquiteturas, audita e edita estritamente os arquivos listados no escopo do projeto.
 4. **Um Escritor por Vez:** Nunca dois agentes editam o mesmo arquivo simultaneamente. O dono temporário do arquivo é quem recebeu o handoff ativo.
 
@@ -39,12 +39,14 @@ O ambiente opera com **duas camadas complementares e inegociáveis**:
 | :--- | :--- | :--- |
 | **Ao Abrir Sessão** | Os hooks nativos do `ai-memory` injetam o briefing automaticamente + leitura de `DOCUMENTACOES/`. | Chamar **`memory_handoff_accept`** + **`memory_briefing`** (`workspace="antigravity"`, `project="<PROJETO>"`) e inspecionar **`DOCUMENTACOES/`** do projeto. |
 | **Durante a Sessão** | Gravar armadilhas/decisões com `memory_write_page` e manter `DOCUMENTACOES/` atualizada. | Gravar armadilhas/decisões com `memory_write_page` e atualizar os documentos em `DOCUMENTACOES/`. |
-| **Ao Fechar Sessão** | Hooks encerram a sessão + `stop_gate.py` exige `python verificar.py` verde. | **Obrigatório** chamar **`memory_handoff_begin`** (resumo com hash do commit + próximos passos) e atualizar `DOCUMENTACOES/`. |
+| **Ao Fechar Sessão** | Hooks encerram a sessão + `stop_gate.py` exige verificação verde (`npm run verify` / `verificar.py`). | **Obrigatório** chamar **`memory_handoff_begin`** (resumo com hash do commit + próximos passos) e atualizar `DOCUMENTACOES/`. |
 
 ---
 
-## ✅ 4. Critério "Pronto = Verificado" (`verificar.py`)
-1. Nenhuma tarefa é considerada pronta sem `python verificar.py` retornando **código 0** (suíte de testes automatizados + varredura `gitleaks` limpa).
+## ✅ 4. Critério "Pronto = Verificado" (Verificação Híbrida TS / Python)
+1. Nenhuma tarefa é considerada pronta sem a esteira de verificação retornando **código 0**:
+   * **TypeScript (Stack Padrão):** `npm run verify` / `bun run verify` (ou via runner unificado `python verificar.py`), executando obrigatoriamente **`tsc --noEmit` (typecheck estrito)** + suíte de testes do `package.json` (`npm test` / `bun test`) + varredura `gitleaks` limpa.
+   * **Python (Exceção Padronizada):** `python verificar.py` executando `unittest` + varredura `gitleaks` limpa.
 2. Todo projeto novo nasce como repositório Git isolado, contendo pelo menos 1 teste automatizado na pasta `tests/`.
 3. **Ciclo TDD Estrito:** Primeiro o teste que falha (*Red*), depois a menor implementação que passa (*Green*), seguido de refatoração limpa (*Refactor*).
 

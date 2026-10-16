@@ -42,9 +42,11 @@
 2. **Sabatina (Grill-Me):** Rodada de 3 a 4 perguntas para sanar dúvidas de UX, dados, segurança e stack técnica. Gerar `_DECISOES.md` com o Genesis Prompt em `DOCUMENTACOES/` e registrar decisões no `ai-memory`.
 3. **Especificação (To-Spec):** Arquitetura, schemas, contratos de interface e critérios no formato *Given/When/Then* em `DOCUMENTACOES/`. Aguardar aprovação do usuário antes de codar.
 4. **Decomposição (To-Tickets):** Quebrar em tarefas atômicas com arquivos e testes definidos em ondas paralelas (respeitando *1 escritor por vez por arquivo* entre Claude Code e Antigravity).
-5. **Implementação (TDD) & Verificação (`verificar.py`):** Um ticket por vez no ciclo contínuo:
-   $$\text{Red (Falha)} \longrightarrow \text{Green (Passa)} \longrightarrow \text{Refactor (Limpa)} \longrightarrow \text{python verificar.py (Código 0)}$$
-   "Pronto" só vale com `python verificar.py` (testes automatizados + varredura `gitleaks`) saindo com código `0`.
+5. **Implementação (TDD) & Verificação Híbrida (`verify` / `verificar.py`):** Um ticket por vez no ciclo contínuo:
+   $$\text{Red (Falha)} \longrightarrow \text{Green (Passa)} \longrightarrow \text{Refactor (Limpa)} \longrightarrow \text{Verificação (Código 0)}$$
+   "Pronto" só vale com a verificação saindo com código `0`:
+   * **Projetos TypeScript (Padrão):** `npm run verify` / `bun run verify` (ou `python verificar.py`), executando obrigatoriamente **`tsc --noEmit` (typecheck estrito)** + suíte de testes (`vitest` / `bun test` / `npm test`) + varredura `gitleaks`.
+   * **Projetos Python (Exceção Padronizada):** `python verificar.py` (`unittest`/`pytest` + varredura `gitleaks`).
 
 ---
 

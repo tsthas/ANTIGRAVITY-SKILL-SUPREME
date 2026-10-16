@@ -20,7 +20,7 @@ Esta skill consolida o framework de desenvolvimento assistido por IA de alta dis
 
 ### Etapa 1: Clarificar a Intenção (Sem Código)
 Faça perguntas diretas para travar:
-1. Como será validado que a tarefa está 'pronta' (`python verificar.py` com código 0).
+1. Como será validado que a tarefa está 'pronta' (`npm run verify` / `bun run verify` em projetos TypeScript, ou `python verificar.py` com código 0).
 2. O que fica explicitamente de fora do escopo.
 3. Restrições de ambiente e arquiteturais.
 
@@ -29,10 +29,10 @@ Faça perguntas diretas para travar:
 - **Sincronização `ai-memory`:** Registre decisões, conceitos e armadilhas operacionais no `ai-memory` via `memory_write_page` (`decisions/`, `concepts/`, `gotchas/`).
 - Divida o plano em tickets atômicos por ondas paralelas e defina o comando de verificação de cada ticket.
 
-### Etapa 3: Execução Cirúrgica & Verificação (`verificar.py`)
+### Etapa 3: Execução Cirúrgica & Verificação Híbrida (`verify` / `verificar.py`)
 - Processe estritamente um ticket por vez (Red -> Green -> Refactor).
 - Respeite a regra de **1 escritor por vez por arquivo** na colaboração Claude Code (Piloto) $\longleftrightarrow$ Antigravity (Copiloto).
-- "Pronto" exige `python verificar.py` saindo com código `0` (testes automatizados + `gitleaks`).
+- "Pronto" exige verificação com código `0`: em projetos **TypeScript**, `tsc --noEmit` + testes (`npm test` / `bun test`) + `gitleaks`; em projetos **Python**, `unittest` + `gitleaks`.
 
 ### Etapa 4: Governança de Subagentes, Ledger & Circuit Breaker
 Quando a execução for delegada a subagentes (`invoke_subagent` com `self`, `code-reviewer`, etc.):

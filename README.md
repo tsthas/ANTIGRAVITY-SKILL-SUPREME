@@ -111,7 +111,7 @@ Copy-Item -Path ".\mcp\mcp_config.template.json" -Destination "$env:USERPROFILE\
 | Dimensão | Vibe Coding Comum | Com Antigravity Supreme |
 | :--- | :--- | :--- |
 | **Postura do Agente** | *Yes-Man* (aceita tudo e gera código às cegas) | **Anti-Yes-Man Socrático** (questiona premissas e propõe trade-offs) |
-| **Ciclo de Desenvolvimento** | Gera arquivos gigantes de uma só vez sem testes | **SDD + TDD** em fatias atômicas + `python verificar.py` (código 0) |
+| **Ciclo de Desenvolvimento** | Gera arquivos gigantes de uma só vez sem testes | **SDD + TDD** em fatias atômicas + `npm/bun run verify` (`tsc --noEmit` + testes) ou `verificar.py` |
 | **Erros e Bugs** | Tenta dezenas de correções aleatórias em loop | **Heurística do 3º Patch** (para e diagnostica arquitetura) |
 | **Segurança** | Expõe senhas no código, ignora RLS e autorização | **7 Pilares DevSecOps** obrigatórios (OWASP, RLS, DTOs Zod, `gitleaks`) |
 | **Memória & Documentação** | Perde o contexto ao longo de conversas extensas | **Dupla Camada:** **`ai-memory`** (handoff Claude $\leftrightarrow$ Antigravity) + **`DOCUMENTACOES/`** integral por projeto |
@@ -181,7 +181,7 @@ Localizadas em `rules/`, estas diretrizes operam como constituição para os age
 6. [**`06_dicionario_de_termos_confluence.md`**](rules/06_dicionario_de_termos_confluence.md):
    * Padrão obrigatório de glossário para documentações corporativas e Atlassian Confluence.
 7. [**`07_ambiente_fechado_e_ai_memory.md`**](rules/07_ambiente_fechado_e_ai_memory.md):
-   * Protocolo do Ambiente Fechado (Claude Code Piloto + Antigravity Copiloto), handoffs via MCP `ai-memory`, preservação integral de `DOCUMENTACOES/` em cada projeto e verificação obrigatória com `python verificar.py`.
+   * Protocolo do Ambiente Fechado (Claude Code Piloto + Antigravity Copiloto), handoffs via MCP `ai-memory`, preservação integral de `DOCUMENTACOES/` em cada projeto e verificação obrigatória híbrida (`npm/bun run verify` com `tsc --noEmit` em TypeScript ou `python verificar.py`).
 
 ---
 
@@ -240,7 +240,7 @@ Agilize o seu trabalho diário com atalhos de alto nível:
 | **Antigravity** | Plataforma de desenvolvimento de software agêntico da Google para engenharia assistida por IA. |
 | **Circuit Breaker** | Mecanismo de segurança que limita o bate-rebate entre subagentes a no máximo 5 rodadas. |
 | **DTO (Data Transfer Object)** | Objeto tipado utilizado para serializar e validar dados em trânsito, protegendo o banco de dados. |
-| **DoD (Definition of Done)** | Critério observável e mensurável (`python verificar.py` com código 0) que comprova que uma tarefa foi concluída com sucesso real. |
+| **DoD (Definition of Done)** | Critério observável e mensurável (`npm/bun run verify` em TS ou `python verificar.py` com código 0) que comprova que uma tarefa foi concluída com sucesso real. |
 | **Ledger Persistente** | Registro imutável em disco que preserva o estado das tarefas mesmo após compactações de contexto. |
 | **MCP (Model Context Protocol)** | Protocolo aberto que padroniza o acesso de modelos de IA a ferramentas e dados externos. |
 | **Ondas Paralelas** | Estratégia de fatiamento onde tarefas simultâneas nunca editam os mesmos arquivos. |
