@@ -197,6 +197,30 @@ Prontos para conexão através do arquivo `mcp/mcp_config.template.json`:
 
 ---
 
+## 🔁 Compatibilidade: Antigravity × Claude Code
+
+Este repositório nasceu para o Antigravity, mas parte dele funciona no Claude Code. O que é portátil e o que não é:
+
+| Conteúdo | Antigravity | Claude Code | Observação |
+| :--- | :---: | :---: | :--- |
+| `skills/engineering/*` e `skills/custom/*` | ✅ | ✅ | Mesmo formato `SKILL.md` (`name` + `description`). Copie para `~/.claude/skills/<nome>/`. |
+| `rules/*.md` | ✅ | ✅ | Markdown puro; no Claude Code importe pelo `CLAUDE.md` com `@caminho`. |
+| `docs/`, `toolchain/` | ✅ | ✅ | Referência humana. |
+| `skills/builtin/*` | ✅ | ❌ | Documentação interna do próprio Antigravity (plugins, extensões, migração). |
+| `workflows/` (slash commands) | ✅ | ❌ | Formato de comandos do Antigravity. |
+| `subagents/` | ✅ | ⚠️ | É uma especificação em texto; o Claude Code usa `.md` com cabeçalho em `~/.claude/agents/`, exige conversão. |
+| `mcp/ai_memory_antigravity.py` | ✅ | ❌ | Adaptador para o handshake do Antigravity; o Claude Code usa a conexão direta do ai-memory. |
+
+**Dica de contexto:** no Claude Code cada skill instalada adiciona sua descrição ao contexto de toda sessão. Instale só as que for usar (por exemplo: `test-driven-development`, `debugging-and-error-recovery`, `code-review-and-quality`, `security-and-hardening`, `spec-driven-development`, `planning-and-task-breakdown`, `ci-cd-and-automation`).
+
+**Limitações conhecidas (leia antes de confiar):**
+* A verificação de pacotes sugerida (`pip`/`npm install`) só confere existência e idade no registro oficial; **não detecta typosquatting** com nome parecido com um pacote antigo.
+* O Antigravity não tem gancho de fim de sessão; o handoff depende de a regra ser seguida (`memory_handoff_begin`).
+* Nenhuma regra escrita substitui verificação mecânica: use hooks, testes e `gitleaks` no pre-commit (modelo em `.githooks/pre-commit`; ative com `git config core.hooksPath .githooks`).
+* O perfil TypeScript do `verificar.py` está implementado para Node.js 26+ (`node --test`), Bun e TypeScript estrito (`tsc --noEmit`), além de Python (`pytest`).
+
+---
+
 ## 🛠️ Toolchain e Programas Essenciais
 
 A stack foi selecionada para garantir o menor tempo de ciclo e máxima confiabilidade:

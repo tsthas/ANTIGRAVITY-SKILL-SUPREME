@@ -1,0 +1,39 @@
+#!/bin/sh
+# Pre-commit do repositorio publico: bloqueia segredos e dados pessoais.
+# Ativar: git config core.hooksPath .githooks
+# Termos especificos do seu ambiente (nome de usuario, empresa, dominios) ficam FORA do repositorio,
+# em .git/dados_pessoais_locais.txt (uma expressao regular por linha). Nunca versione esse arquivo.
+
+# 1) Segredos (gitleaks, so o que esta staged)
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks git --pre-commit --staged --redact --no-banner || {
+    echo "BLOQUEADO: o gitleaks encontrou possivel segredo no commit."; exit 1; }
+else
+  echo "AVISO: gitleaks nao esta instalado; a varredura de segredos foi pulada."
+fi
+
+# 2) Dados pessoais nas linhas ADICIONADAS
+added=$(git diff --cached -U0 --no-color | grep '^+' | grep -v '^+++')
+[ -z "$added" ] && exit 0
+
+generic='[A-Za-z]:[\]Users[\][A-Za-z0-9._-]+|/(Users|home)/[A-Za-z0-9._-]+/|(^|[^0-9.])(10\.[0-9]+|192\.168|172\.(1[6-9]|2[0-9]|3[01])|100\.(6[4-9]|[7-9][0-9]|1[01][0-9]|12[0-7]))\.[0-9]+\.[0-9]+([^0-9]|$)'
+hits=$(printf '%s\n' "$added" | grep -E -n -- "$generic")
+
+email=$(printf '%s\n' "$added" | grep -E -o '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' | grep -v -i -E '^(noreply|no-reply|git|users\.noreply)|@(example|users\.noreply\.github)\.' )
+[ -n "$email" ] && hits="$hits
+e-mail: $(printf '%s' "$email" | head -3 | tr '\n' ' ')"
+
+local_file="$(git rev-parse --git-dir)/dados_pessoais_locais.txt"
+if [ -f "$local_file" ]; then
+  extra=$(printf '%s\n' "$added" | grep -E -i -n -f "$local_file")
+  [ -n "$extra" ] && hits="$hits
+$extra"
+fi
+
+if [ -n "$(printf '%s' "$hits" | tr -d '[:space:]')" ]; then
+  echo "BLOQUEADO: dados pessoais nas linhas adicionadas (valores omitidos):"
+  printf '%s\n' "$hits" | sed -E 's/^([0-9]+):.*/  linha do diff \1/' | head -8
+  echo "Troque por placeholder (ex.: C:\Users\<USUARIO>, <IP>) e commite de novo."
+  exit 1
+fi
+exit 0
